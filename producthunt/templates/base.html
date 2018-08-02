@@ -23,6 +23,9 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
                 {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a href="{% url 'create' %}" class="nav-link">Create</a>
+                </li>
                     <form action="{% url 'logout' %}" method="POST" id="logout">
                         {% csrf_token %}
                         <li class="nav-item">

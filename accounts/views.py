@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib import auth
 
@@ -33,13 +33,19 @@ def login(request):
         user = auth.authenticate(username=request.POST['username'],password=request.POST['password'])
         if user is not None:
             auth.login(request, user)
+            next_url = request.POST.get('next_url')
+            print(next_url)
+            if next_url:
+                return HttpResponseRedirect(next_url)
             return redirect('home')
         else:
             return render(request, 'login.html', {
                 'error': 'username or password is incorrect'
             })
     else:
-        return render(request, 'login.html')
+        return render(request, 'login.html', {
+            'next_url': request.GET.get('next')
+        })
 
 def logout(request):
     if request.method == 'POST':

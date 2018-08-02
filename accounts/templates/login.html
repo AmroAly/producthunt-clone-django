@@ -11,12 +11,12 @@
 
 <form method="POST" action="{% url 'login' %}">
     {% csrf_token %}
-
+    <input type="text" name="next_url" hidden value="{{ next_url }}">
     Username:
     <input type="text" name="username" class="form-control">
     Password:
     <input type="password" name="password" class="form-control">
     <br>
-    <input type="submit" value="Sign Up!" class="btn btn-primary">
+    <input type="submit" value="Login" class="btn btn-primary">
 </form>
 {% endblock %}
